@@ -8,6 +8,8 @@ extern long long (*g_setdchu_data_fn)(int, void *, int);
 extern char g_flow_light_enabled;
 extern char g_breathe_light_enabled;
 extern int g_delay;
+extern HANDLE g_signal_continue;
+extern char g_exit;
 
 unsigned thread_rgb_ctrl(void *in_vars)
 {
@@ -42,6 +44,11 @@ unsigned thread_rgb_ctrl(void *in_vars)
 	char add = 1;
 	unsigned char count = 0;
 	for (;;) {
+		WaitForSingleObject(g_signal_continue, INFINITE);
+		if (g_exit) {
+			return 0;
+		}
+
 		// flowing light
 		if (g_flow_light_enabled) {
 			switch (curr_tran_stat) {

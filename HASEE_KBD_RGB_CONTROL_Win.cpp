@@ -28,6 +28,10 @@ char g_flow_light_enabled = 1;
 char g_breathe_light_enabled = 0;
 
 int g_delay = 25;
+
+HANDLE g_signal_continue;
+
+char g_exit = 0;
 }
 
 #define MAX_LOADSTRING 100
@@ -89,6 +93,9 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance,
 	}
 
 	Shell_NotifyIcon(NIM_DELETE, &tray_icon_data);
+
+	g_exit = 1;
+	SetEvent(g_signal_continue);
 
 	return (int)msg.wParam;
 }
@@ -211,6 +218,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 			CreateWindow(WC_STATIC, "Delay", WS_VISIBLE | WS_CHILD, 0, 120, 200, 50, hwnd, 0, 0, nullptr);
 			CreateWindow(WC_EDIT, "25", WS_VISIBLE | WS_BORDER | WS_CHILD, 210, 120, 200, 50, hwnd, (HMENU)103, 0, nullptr);
 
+			g_signal_continue = CreateEvent(nullptr, TRUE, TRUE, nullptr);
+
 			g_thread_rgb_ctrl = (HANDLE)_beginthreadex(nullptr, 0, thread_rgb_ctrl, nullptr, STACK_SIZE_PARAM_IS_A_RESERVATION, nullptr);
 
 			break;
@@ -238,9 +247,13 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 							if (g_enabled) {
 								menu_item_info.dwTypeData = (LPSTR) "Pause";
 								SetMenuItemInfo(g_tray_popup_menu, IDM_RGB_P_C, FALSE, &menu_item_info);
+
+								SetEvent(g_signal_continue);
 							} else {
 								menu_item_info.dwTypeData = (LPSTR) "Continue";
 								SetMenuItemInfo(g_tray_popup_menu, IDM_RGB_P_C, FALSE, &menu_item_info);
+
+								ResetEvent(g_signal_continue);
 							}
 
 							hwnd = hwnd;
