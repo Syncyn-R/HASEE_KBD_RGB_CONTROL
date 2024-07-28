@@ -129,11 +129,13 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="HASEE_KBD_RGB_CONTROL.h" />
+    <ClInclude Include="HASEE_KBD_RGB_CONTROL_Win.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="HASEE_KBD_RGB_CONTROL.cpp" />
+    <ClCompile Include="HASEE_KBD_RGB_CONTROL.c" />
+    <ClCompile Include="HASEE_KBD_RGB_CONTROL_Win.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="HASEE_KBD_RGB_CONTROL.rc" />

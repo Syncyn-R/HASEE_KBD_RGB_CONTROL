@@ -24,12 +24,18 @@
     <ClInclude Include="Resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="HASEE_KBD_RGB_CONTROL_Win.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="HASEE_KBD_RGB_CONTROL.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="HASEE_KBD_RGB_CONTROL.cpp">
+    <ClCompile Include="HASEE_KBD_RGB_CONTROL_Win.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HASEE_KBD_RGB_CONTROL.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
